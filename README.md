@@ -150,4 +150,4 @@ Le projet doit être livré sous un délai de **6 semaines**, découpées comme 
 
 #### **9. RECOMPONSE**
 
-Voyage frais payé à DisneyLand 🤥
+Voyage tout frais payés à DisneyLand 🤥
