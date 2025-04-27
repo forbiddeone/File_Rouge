@@ -3,9 +3,9 @@
 *.pkl
 *.db
 *.duckdb
-.env
+.venv
 .envrc
-.env.*
+.venv.*
 data/raw/*
 data/processed/*
 data/duckdb/*
