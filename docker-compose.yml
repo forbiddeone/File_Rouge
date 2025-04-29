@@ -1,26 +1,29 @@
 version: '3.8'
 
 services:
+
   backend:
     build:
-      context: ./backend
+      context: .                        # Le contexte est tout le projet
+      dockerfile: backend/Dockerfile     # Dockerfile spécifique pour le backend
     ports:
       - "8000:8000"
+    volumes:
+      - ./data:/app/data
     networks:
       - flix_network
 
   frontend:
     build:
-      context: ./frontend
+      context: ./frontend               # Le contexte est uniquement le dossier frontend
     ports:
       - "8501:8501"
-    networks:
-      - flix_network
-
-  database:
-    image: duckdb/duckdb:latest  # Utilisation d'une image Docker existante
     volumes:
-      - ./data:/data  # Montage d'un volume pour stocker les données DuckDB
+      - ./data:/app/data
+    environment:
+      - BACKEND_URL=http://backend:8000  # <<< On injecte ici l'adresse du backend pour le frontend
+    depends_on:
+      - backend                         # Le frontend attend que le backend démarre
     networks:
       - flix_network
 

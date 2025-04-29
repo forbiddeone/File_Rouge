@@ -1,14 +1,22 @@
-# Utilise une image de base Python officielle avec Python 3.9
 FROM python:3.11-slim
 
-# Définir le répertoire de travail dans le conteneur
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    gcc \
+    libffi-dev \
+    libpq-dev \
+    libssl-dev \
+    python3-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# Copier les fichiers de dépendances
+WORKDIR /app
 
-# Installer les dépendances
+COPY backend/app /app/app
+COPY ml /app/ml
+COPY backend/requirements.txt /app/requirements.txt
 
-# Copier le reste du code de l'application
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Exposer le port sur lequel Streamlit fonctionne
+ENV PYTHONPATH=/app
 
-# Commande pour démarrer l'application Streamlit
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
