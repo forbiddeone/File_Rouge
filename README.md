@@ -13,16 +13,46 @@ Ce projet permet de :
 
 ```
 File_Rouge/
-├── backend/            # API REST en FastAPI
-├── frontend/           # Interface utilisateur avec Streamlit
-├── ml/                 # Scripts de modélisation (SVD)
-├── scripts/            # Scripts de préparation des données (fetch, clean, load DuckDB)
-├── data/
-│   └── raw/
-│       └── ratings.csv  # ⚠️ Fichier obligatoire : données de ratings
-├── docker-compose.yml  # Orchestration des services
-├── main.py             # Script principal pour exécuter l'ensemble du pipeline
-└── start.sh            # Script pour démarrer manuellement les services
+├── backend                          # Code du backend (API FastAPI)
+│   ├── app                          # Modules FastAPI (routes, modèles, logique)
+│   ├── Dockerfile                   # Image Docker pour lancer le backend
+│   ├── requirements.txt             # Dépendances Python du backend
+│   └── tests                        # Tests unitaires ou d’intégration pour le backend
+├── data                             # Données utilisées par l’application
+│   ├── duckdb                       # Fichiers DuckDB (base de données locale)
+│   ├── processed                    # Données nettoyées et prêtes à l’usage
+│   └── raw                          # Données brutes initiales (par ex. téléchargées)
+├── docker-compose.yml              # Orchestration Docker (backend + frontend)
+├── frontend                         # Code du frontend (interface Streamlit)
+│   ├── app.py                       # Point d’entrée principal de l’interface Streamlit
+│   ├── Dockerfile                   # Image Docker pour le frontend Streamlit
+│   ├── __pycache__                  # Cache Python (à ignorer)
+│   ├── requirements.txt             # Dépendances Python du frontend
+│   ├── test_frontend.py             # Script de test pour vérifier les fonctions UI
+│   └── utils.py                     # Fonctions utilitaires appelant l’API backend
+├── HELPME.md                        # Notes d’aide ou pense-bête (probablement perso)
+├── main.py                          # Fichier racine – probablement non utilisé
+├── ml                               # Code lié au machine learning (recommandations)
+│   ├── evaluate_model.py            # Script d’évaluation du modèle
+│   ├── __pycache__                  # Cache Python (à ignorer)
+│   ├── recommender.py               # Logique de recommandation (ex: filtrage collaboratif)
+│   ├── svd_model.pkl                # Modèle entraîné (format pickle)
+│   └── train_model.py               # Script d’entraînement du modèle
+├── __pycache__                      # Cache Python global (à ignorer)
+│   └── tests_runner.cpython-311.pyc # Fichier compilé Python pour les tests
+├── README.md                        # Explication du projet, comment le lancer, etc.
+├── Red_thread.code-workspace        # Fichier de configuration VSCode (workspace)
+├── requirements.txt                 # Dépendances globales (peut-être obsolète ou mixte)
+├── scripts                          # Scripts utilitaires de traitement de données
+│   ├── clean_data.py                # Nettoyage des données
+│   ├── create_duckdb.py             # Initialisation de la base DuckDB
+│   ├── fetch_tmdb.py                # Téléchargement des données TMDB (API)
+│   ├── __init__.py                  # Rend le dossier importable en tant que module
+│   ├── load_ratings_duckdb.py       # Chargement des notes dans DuckDB
+│   ├── logger.py                    # Gestion des logs
+│   └── __pycache__                  # Cache Python
+├── start.sh                         # Script pour démarrer l’application localement
+└── tests_runner.py                  # Script de test lancer pour le projet
 ```
 
 
